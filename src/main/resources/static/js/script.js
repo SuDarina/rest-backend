@@ -2,12 +2,20 @@
 
 let stompClient
 let username
+let password
 
 const connect = (event) => {
     username = document.querySelector('#username').value.trim()
+    password = document.querySelector('#password').value.trim()
 
-    if (username) {
+
+    if (username && password) {
         const login = document.querySelector('#login')
+        let request = new XMLHttpRequest()
+        let arr = "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
+        request.open('POST', "/auth/signin", false);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send(arr);
         login.classList.add('hide')
 
         const chatPage = document.querySelector('#chat-page')
